@@ -1,38 +1,52 @@
 # claude-code-cross-review
 
-> **写的不审，审的不写** — 多模型代码审查工作流
+> **The writer doesn't review. The reviewer doesn't write.**
 
-Claude (Opus) 写代码，Codex (GPT) 审代码，循环修复直到无新问题，再提交。两个模型各司其职，互不越界。
+A multi-model code review workflow for Claude Code. Claude (Opus) writes the code, Codex (GPT) reviews it, Claude fixes what Codex finds — looping until clean, then commits.
+
+> **写的不审，审的不写。**
+>
+> Claude Code 的多模型代码审查工作流。Claude (Opus) 写代码，Codex (GPT) 审代码，Claude 修复 Codex 发现的问题，循环直到干净，再提交。
 
 ---
 
-## 工作流程
+## How It Works / 工作原理
 
 ```
-代码写完
-    ↓
-[Codex] 审查未提交改动
-    ↓
-有问题？ ──是──→ [Claude] 逐项修复 ──→ 回到审查
-    ↓ 否
+Code written / 代码写完
+        ↓
+[Codex] Review uncommitted changes / 审查未提交改动
+        ↓
+Issues found? / 有问题？
+  Yes ──→ [Claude] Fix each issue / 逐项修复 ──→ Back to review / 回到审查
+  No  ↓
 lint / build / test
-    ↓
+        ↓
 git commit
 ```
 
+| Role / 角色 | Model / 模型 | Responsibility / 职责 |
+|---|---|---|
+| Write / 写代码 | Claude Opus 4.6 | Feature dev, bug fixes, refactoring / 功能开发、Bug 修复、重构 |
+| Review / 审代码 | Codex (GPT-5.3) | Edge cases, logic bugs, type safety / 边界条件、逻辑漏洞、类型安全 |
+
+Codex is integrated via MCP protocol — no window switching required. Falls back to `codex` CLI if MCP is unavailable.
+
+Codex 通过 MCP 协议集成，Claude 无需切换窗口即可调用审查。若 MCP 不可用，自动回退到 `codex` CLI。
+
 ---
 
-## 前置要求
+## Requirements / 前置要求
 
-需要安装 [OpenAI Codex CLI](https://github.com/openai/codex)：
+Install [OpenAI Codex CLI](https://github.com/openai/codex) / 安装 Codex CLI：
 
 ```bash
 npm install -g @openai/codex
-# 或
+# or / 或
 brew install codex
 ```
 
-验证安装：
+Verify / 验证：
 
 ```bash
 codex --version
@@ -40,36 +54,36 @@ codex --version
 
 ---
 
-## 安装
-
-**本地安装**（克隆后运行）：
+## Installation / 安装
 
 ```bash
-git clone https://github.com/splat/claude-code-cross-review.git
+git clone https://github.com/splazapp/claude-code-cross-review.git
 cd claude-code-cross-review
 bash install.sh
 ```
 
-安装内容：
-- `~/.claude/skills/cross-review/SKILL.md` — 工作流技能
-- `~/.claude/commands/codex-review.md` — `/codex-review` 快捷命令
-- `~/.claude/.mcp.json` 中注册 Codex 为 MCP 服务器
+This installs / 安装内容：
 
-安装完成后**重启 Claude Code** 生效。
+- `~/.claude/skills/cross-review/SKILL.md` — workflow skill / 工作流技能
+- `~/.claude/commands/codex-review.md` — `/codex-review` slash command / 快捷命令
+- `~/.claude/.mcp.json` — registers Codex as an MCP server / 注册 Codex 为 MCP 服务器
+
+**Restart Claude Code after installation. / 安装完成后重启 Claude Code。**
 
 ---
 
-## 使用方式
+## Usage / 使用方式
 
-**方式一：触发技能**
+**Option 1 — Trigger the skill / 触发技能：**
 
-在 Claude Code 中告诉 Claude：
+Tell Claude in Claude Code / 在 Claude Code 中告诉 Claude：
 
 ```
+Use the cross-review skill to review current changes.
 使用 cross-review 技能审查当前改动
 ```
 
-**方式二：使用命令**
+**Option 2 — Slash command / 使用命令：**
 
 ```
 /codex-review
@@ -77,7 +91,7 @@ bash install.sh
 
 ---
 
-## 卸载
+## Uninstall / 卸载
 
 ```bash
 bash uninstall.sh
@@ -85,17 +99,14 @@ bash uninstall.sh
 
 ---
 
-## 工作原理
+## Why This Works / 为什么这样有效
 
-| 角色 | 模型 | 职责 |
-|------|------|------|
-| 写代码 | Claude Opus 4.6 | 功能开发、Bug 修复、重构 |
-| 审代码 | Codex (GPT-5.3) | 边界条件、逻辑漏洞、类型安全 |
+Claude is great at writing code but tends to miss its own blind spots. Codex, as an independent model, reviews without bias toward the original implementation. The result: fewer bugs reach `git commit`.
 
-Codex 通过 MCP 协议集成，Claude 无需切换窗口即可调用审查。若 MCP 不可用，自动回退到 `codex` CLI。
+Claude 擅长写代码，但容易对自己的盲点视而不见。Codex 作为独立模型，审查时不带对原实现的偏见。结果是：更少的 bug 进入 `git commit`。
 
 ---
 
-## 版本
+## Version / 版本
 
 v1.0.0
