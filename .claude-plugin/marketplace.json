@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-code-cross-review",
+  "description": "Multi-model code review marketplace for Claude Code — Claude writes, Codex reviews, loop until clean, then commit.",
+  "owner": {
+    "name": "splazapp",
+    "url": "https://github.com/splazapp"
+  },
+  "plugins": [
+    {
+      "name": "claude-code-cross-review",
+      "description": "Multi-model code review: Claude writes, Codex reviews uncommitted changes, Claude fixes, loop until clean, then commit.",
+      "author": {
+        "name": "splazapp",
+        "url": "https://github.com/splazapp"
+      },
+      "source": "./plugins/claude-code-cross-review",
+      "category": "productivity",
+      "homepage": "https://github.com/splazapp/claude-code-cross-review"
+    }
+  ]
+}
