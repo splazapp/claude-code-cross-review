@@ -1,3 +1,7 @@
+---
+description: Trigger cross-review workflow — Codex reviews uncommitted changes, Claude fixes, loop until clean.
+---
+
 # Codex Code Review
 
 触发 Cross-Review 多模型代码审查工作流。

@@ -15,7 +15,7 @@ fi
 echo "✅ codex CLI found: $(command -v codex)"
 
 # 2. Install skill
-SKILL_SRC="$SCRIPT_DIR/skill/cross-review/SKILL.md"
+SKILL_SRC="$SCRIPT_DIR/skills/cross-review/SKILL.md"
 SKILL_DST="$CLAUDE_DIR/skills/cross-review/SKILL.md"
 mkdir -p "$(dirname "$SKILL_DST")"
 cp "$SKILL_SRC" "$SKILL_DST"
