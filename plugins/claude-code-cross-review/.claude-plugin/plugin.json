@@ -1,7 +1,7 @@
 {
   "name": "claude-code-cross-review",
   "version": "1.0.0",
-  "description": "Marketplace: Multi-model code review tools for Claude Code. Contains the cross-review plugin — Claude writes, Codex reviews, loop until clean.",
+  "description": "Multi-model code review for Claude Code — Claude writes, Codex reviews, loop until clean, then commit.",
   "author": {
     "name": "splazapp",
     "url": "https://github.com/splazapp"
@@ -9,5 +9,5 @@
   "homepage": "https://github.com/splazapp/claude-code-cross-review",
   "repository": "https://github.com/splazapp/claude-code-cross-review",
   "license": "MIT",
-  "keywords": ["marketplace", "code-review", "codex", "multi-model", "workflow"]
+  "keywords": ["code-review", "codex", "multi-model", "workflow"]
 }

@@ -15,14 +15,14 @@ fi
 echo "✅ codex CLI found: $(command -v codex)"
 
 # 2. Install skill
-SKILL_SRC="$SCRIPT_DIR/skills/cross-review/SKILL.md"
+SKILL_SRC="$SCRIPT_DIR/plugins/claude-code-cross-review/skills/cross-review/SKILL.md"
 SKILL_DST="$CLAUDE_DIR/skills/cross-review/SKILL.md"
 mkdir -p "$(dirname "$SKILL_DST")"
 cp "$SKILL_SRC" "$SKILL_DST"
 echo "✅ Skill installed: $SKILL_DST"
 
 # 3. Install command
-CMD_SRC="$SCRIPT_DIR/commands/codex-review.md"
+CMD_SRC="$SCRIPT_DIR/plugins/claude-code-cross-review/commands/codex-review.md"
 CMD_DST="$CLAUDE_DIR/commands/codex-review.md"
 mkdir -p "$(dirname "$CMD_DST")"
 cp "$CMD_SRC" "$CMD_DST"
