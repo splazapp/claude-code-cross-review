@@ -10,7 +10,7 @@ if [[ "${confirm,,}" != "y" ]]; then
   exit 0
 fi
 
-# 1. Remove skill
+# 1. Remove skills
 SKILL_DST="$CLAUDE_DIR/skills/cross-review"
 if [ -d "$SKILL_DST" ]; then
   rm -rf "$SKILL_DST"
@@ -19,13 +19,29 @@ else
   echo "⏭️  Skill not found, skipping: $SKILL_DST"
 fi
 
-# 2. Remove command
+SKILL2_DST="$CLAUDE_DIR/skills/claude-review"
+if [ -d "$SKILL2_DST" ]; then
+  rm -rf "$SKILL2_DST"
+  echo "✅ Removed skill: $SKILL2_DST"
+else
+  echo "⏭️  Skill not found, skipping: $SKILL2_DST"
+fi
+
+# 2. Remove commands
 CMD_DST="$CLAUDE_DIR/commands/codex-review.md"
 if [ -f "$CMD_DST" ]; then
   rm "$CMD_DST"
   echo "✅ Removed command: $CMD_DST"
 else
   echo "⏭️  Command not found, skipping: $CMD_DST"
+fi
+
+CMD2_DST="$CLAUDE_DIR/commands/claude-review.md"
+if [ -f "$CMD2_DST" ]; then
+  rm "$CMD2_DST"
+  echo "✅ Removed command: $CMD2_DST"
+else
+  echo "⏭️  Command not found, skipping: $CMD2_DST"
 fi
 
 # 3. Remove Codex MCP entry from ~/.claude/.mcp.json
